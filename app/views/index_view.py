@@ -1,3 +1,4 @@
+import os
 import logging
 
 import aiohttp_jinja2
@@ -48,12 +49,13 @@ class IndexView:
         for m in messages:
             entry = None
             if m.file and not isinstance(m.media, types.MessageMediaWebPage):
+                file_name, file_type = os.path.splitext(get_file_name(m))
                 entry = dict(
                     file_id=m.id,
                     media=True,
                     thumbnail=f"/{alias_id}/{m.id}/thumbnail",
-                    mime_type=m.file.mime_type,
-                    insight = get_file_name(m),
+                    mime_type=file_type.replace('.', '').upper(),
+                    insight = file_name,
                     human_size=get_human_size(m.file.size),
                     url=f"/{alias_id}/{m.id}/view"
                 )

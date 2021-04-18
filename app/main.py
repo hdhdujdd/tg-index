@@ -27,6 +27,7 @@ class Indexer:
 
     async def startup(self):
         await self.tg_client.start()
+        self.tg_client.parse_mode = 'html'
         log.debug("telegram client started!")
 
         await setup_routes(self.server, Views(self.tg_client))
