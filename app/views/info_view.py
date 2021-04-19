@@ -47,13 +47,13 @@ class InfoView:
             media = {
                 'type':message.file.mime_type
             }
-            if 'video/' in message.file.mime_type:
+            mime_type = message.file.mime_type
+            if 'video/' in mime_type:
                 media['video'] = True
-            elif 'audio/' in message.file.mime_type:
+            elif 'audio/' in mime_type:
                 media['audio'] = True
-            elif 'image/' in message.file.mime_type:
+            elif 'image/' in mime_type:
                 media['image'] = True
-
             if message.text:
                 caption = message.raw_text
             else:
@@ -65,6 +65,7 @@ class InfoView:
                 'file_id': file_id,
                 'human_size': human_file_size,
                 'media': media,
+                'mime_type': mime_type,
                 'caption_html': caption_html,
                 'title': f"Download | {file_name} | {human_file_size}",
                 'reply_btns': reply_btns,
